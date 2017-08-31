@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8"/>
+<head>
+    <title>Home</title>
+    <!--<script th:src="@{sockjs.min.js}"></script>
+    <script th:src="@{stomp.min.js}"></script>
+    <script th:src="@{jquery.min.js}"></script>-->
+    <script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.js"></script>
+    <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<p>
+    聊天室
+</p>
+
+<form id="wiselyForm">
+    <textarea rows="4" cols="60" name="text" title="text"></textarea>
+    <input type="submit"/>
+</form>
+<div id="output"></div>
+
+<script th:inline="javascript">
+    $("#wiselyForm").submit(function (e) {
+        e.preventDefault();
+        var text = $("#wiselyForm").find('textarea[name="text"]').val();
+        sendSpittle(text);
+    });
+
+    var sock = new SockJS("/endpointChat");
+    var stomp = Stomp.over(sock);
+    stomp.connect('guest', 'guest', function (frame) {
+        stomp.subscribe("/user/queue/notifications", handleNotification);
+    });
+
+    function handleNotification(message) {
+        $("#output").append("<b> Received:" + message.body + "</b><br/>")
+    }
+
+    function sendSpittle(text) {
+        stomp.send("/chat", {}, text);
+    }
+
+    $("#stop").click(function () {
+        sock.close()
+    });
+</script>
+
+</body>
+</html>
