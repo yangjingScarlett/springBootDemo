@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @author Yangjing
  */
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity//这句在实现了extends WebSecurityConfigurerAdapter的情况下也是可以不写的
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override

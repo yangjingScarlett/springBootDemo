@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @author Yangjing
  */
 @Configuration
-@EnableWebMvc
+@EnableWebMvc//这句其实在实现了extends WebMvcConfigurerAdapter的情况下，是可以不写的
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override

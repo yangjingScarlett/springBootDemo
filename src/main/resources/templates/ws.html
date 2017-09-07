@@ -5,6 +5,7 @@
     <title>Spring Boot + WebSocket + 广播式</title>
 </head>
 <body onload="disconnect()">
+<!--WebSocket是一种协议，在http协议基础上改善的-->
 <noscript><h2 style="color: #ff0000">貌似你的浏览器不支持WebSocket</h2></noscript>
 <div>
     <div>
@@ -34,6 +35,7 @@
 
     function connect() {
         var socket = new SockJS('/endpointWisely');//连接SockJs的endpoint名称为endpointWisely
+        /*STOMP即Simple (or Streaming) Text Orientated Messaging Protocol，简单(流)文本定向消息协议，它提供了一个可互操作的连接格式，允许STOMP客户端与任意STOMP消息代理（Broker）进行交互。*/
         stompClient = Stomp.over(socket);//使用STOMP自协议的WebSocket客户端
         stompClient.connect({}, function (frame) {//连接WebSocket客户端
             setConnected(true);

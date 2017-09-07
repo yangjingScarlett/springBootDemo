@@ -17,6 +17,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {//注册STOMP协议的节点（endpoint），并映射指定的url
+        //SockJS是一个JavaScript库，提供跨浏览器JavaScript的API，创建了一个低延迟、全双工的浏览器和web服务器之间通信通道。
         registry.addEndpoint("/endpointWisely").withSockJS();//注册一个STOMP的endpoint，并指定使用SockJS协议
         registry.addEndpoint("/endpointChat").withSockJS();
     }
